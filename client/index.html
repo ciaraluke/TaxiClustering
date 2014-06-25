@@ -8,8 +8,18 @@
 	<link rel="stylesheet" href = "./clockpicker/dist/bootstrap-clockpicker.min.css">
 	<script type="text/javascript">
 
-		function saveDate(){
+		function saveData(){
 
+			/*
+			$.post("/index.html",{name:$("#name").val(),gen_id:$("#gen_id").val(),dest:$('#dest').val(),time:$('#time').val()})
+				.done(function(data){
+					$('#heading').html("Request Sent")
+				});
+			*/
+
+			$('#heading').html("Request Sent");
+			$('#name').html($("#name").val());
+			console.log($("#name").val())
 		}
 
 	</script>
@@ -29,16 +39,16 @@
 			<div class="col-lg-8 centered">
 				<center>
 				<!-- The Taxi Booking Heading  -->
-					<h1>Taxi</h1>
+					<h1 id="heading">Taxi</h1>
 				</center>
 			<div class="form-group">
 				<!-- User inputs his/her details -->				
 				<!-- Have a success button -->
-				<input type="text" class="form-control" placeholder="Name">
-				<input type="text" class="form-control" placeholder="Gen Id">
-				<input type="text" class="form-control" placeholder="Destination">
+				<input type="text" class="form-control" placeholder="Name" id="name">
+				<input type="text" class="form-control" placeholder="Gen Id" id="gen_id">
+				<input type="text" class="form-control" placeholder="Destination" id="dest">
 				<div class="input-group clockpicker">
-			    	<input type="text" class="form-control" value="09:30">
+			    	<input type="text" class="form-control" value="09:30" id="time">
 			    	<span class="input-group-addon">
 			    	    <span class="glyphicon glyphicon-time"></span>
 			    	</span>
@@ -46,7 +56,9 @@
 				<script type="text/javascript" src="./clockpicker/dist/bootstrap-clockpicker.min.js">
 				</script>
 				<script type="text/javascript">
-					$('.clockpicker').clockpicker();
+					$('.clockpicker').clockpicker({
+						autoclose : true
+					});
 				</script>
 				
 			</div>
