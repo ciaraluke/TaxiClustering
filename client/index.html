@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Taxi App</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href = "./clockpicker/dist/bootstrap-clockpicker.min.css">
+	<script type="text/javascript">
+
+		function saveDate(){
+
+		}
+
+	</script>
+	<style>
+		.centered{
+			float: none;
+			margin :0 auto;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<body>
+		<div class="container">
+			<div class="col-lg-8 centered">
+				<center>
+				<!-- The Taxi Booking Heading  -->
+					<h1>Taxi</h1>
+				</center>
+			<div class="form-group">
+				<!-- User inputs his/her details -->				
+				<!-- Have a success button -->
+				<input type="text" class="form-control" placeholder="Name">
+				<input type="text" class="form-control" placeholder="Gen Id">
+				<input type="text" class="form-control" placeholder="Destination">
+				<div class="input-group clockpicker">
+			    	<input type="text" class="form-control" value="09:30">
+			    	<span class="input-group-addon">
+			    	    <span class="glyphicon glyphicon-time"></span>
+			    	</span>
+				</div>
+				<script type="text/javascript" src="./clockpicker/dist/bootstrap-clockpicker.min.js">
+				</script>
+				<script type="text/javascript">
+					$('.clockpicker').clockpicker();
+				</script>
+				
+			</div>
+			<button type="button" class="btn btn-success" onclick="saveData()">Submit</button>
+		</div>	
+	</body>
+</body>
+
+</html>
