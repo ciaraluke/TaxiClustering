@@ -10,16 +10,19 @@
 
 		function saveData(){
 
-			/*
-			$.post("/index.html",{name:$("#name").val(),gen_id:$("#gen_id").val(),dest:$('#dest').val(),time:$('#time').val()})
+			
+			$.post("/bookStatus",{name:$("#name").val(),gen_id:$("#gen_id").val(),dest:$('#dest').val(),time:$('#time').val()})
 				.done(function(data){
 					$('#heading').html("Request Sent")
 				});
-			*/
 
 			$('#heading').html("Request Sent");
 			$('#name').html($("#name").val());
 			console.log($("#name").val())
+			
+
+			//$.post("/bookStatus");
+			//window.location.assign("./bookStatus");
 		}
 
 	</script>
