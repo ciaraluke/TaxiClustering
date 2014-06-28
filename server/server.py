@@ -12,11 +12,11 @@ def book():
 	TaxiPass['dest'] = str(request.form['dest'])
 	TaxiPass['gen_id'] = str(request.form['gen_id'])
 	TaxiPass['time'] = str(request.form['time'])
-
+	TaxiPass['status'] = "False"
 	try:
 		cur = cnx.cursor()
-		cur.execute('insert into taxi(name,dest,gen_id,time) VALUES (%s,%s,%s,%s);',(TaxiPass['name'],TaxiPass['dest'],
-			TaxiPass['gen_id'],TaxiPass['time']))
+		cur.execute('insert into taxi(name,dest,gen_id,time,status) VALUES (%s,%s,%s,%s,%s);',(TaxiPass['name'],TaxiPass['dest'],
+			TaxiPass['gen_id'],TaxiPass['time'],TaxiPass['status']))
 		cnx.commit()
 		cur.close()
 		return json.dumps(TaxiPass)
