@@ -1,9 +1,38 @@
 from flask import Flask,request,render_template
 import json,time,random
-import MySQLdb as mdb 
-
+import MySQLdb as mdb
+from pygeocoder import Geocoder 
+from QuadTreeCluster import *
+#PyGeo location
 app = Flask(__name__)
 cnx = mdb.connect('localhost','root','','road')
+
+@app.route("/admin")
+def admin():
+	try:
+		cur = cnx.cursor()
+		data = cur.execute('select * from taxi')
+		rows = cur.fetchall()
+		clustering_data = []
+
+		cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
+
+		for entries in rows:
+			address = Geocoder.geocode(entries[1])
+			data = {'gen_id':entries[1],
+				'x':address.coordinates[0],
+				'y':address.coordinates[1]
+			}
+			clustering_data.append(data)
+			cluster.insert(data)
+		
+		#return json.dumps(clustering_data)
+		cluster.getAllobjects()
+		return json.dumps(returnedObject)
+
+	except Exception as e:
+		print 'Fuck this shit '
+
 
 @app.route("/bookStatus",methods = ["POST"])
 def book():

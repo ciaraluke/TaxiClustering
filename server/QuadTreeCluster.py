@@ -1,6 +1,7 @@
 import logging
 
 logging.root.setLevel(logging.INFO)
+returnedObject = []
 
 class QuadTree:
 
@@ -12,7 +13,7 @@ class QuadTree:
 			self.level = lvl
 
 
-			self.maxlevel = 4
+			self.maxlevel = 8
 			self.objects = []
 			self.maxobjects = 3 # Capacity of the taxi
 		 
@@ -27,16 +28,22 @@ class QuadTree:
 		self.nodes = []
 
 	
-	def getAllobjects(self,returnedObject):
+	def getAllobjects(self):
 
-		if not self.nodes:
+		if self.nodes[0]!=None:
 			for nodes in self.nodes:
-				nodes.getAllobjects(returnedObject)
+				nodes.getAllobjects()
 
-		for obj in self.objects:
-			returnedObject.append(obj)
-
-		return returnedObject
+		#for obj in self.objects:
+		#returnedObject.append(obj)
+		#logging.info("okay this shit is happeneing {0}".format(returnedObject) )
+		
+		if len(self.objects)!=0:
+			#returnedObject = returnedObject + self.objects
+			returnedObject.append(self.objects)
+			logging.info("okay this shit is happeneing r {0}".format(returnedObject) )
+		
+		#return returnedObject
 
 	
 	def findNearbyobjects(self,obj,returnedObject):
@@ -122,7 +129,7 @@ class QuadTree:
 		self.nodes[1] = QuadTree(square2,self.level+1)
 		self.nodes[2] = QuadTree(square3,self.level+1)
 		self.nodes[3] = QuadTree(square4,self.level+1)
-
+		logging.info("it split successfully")
 
 	def insert(self,obj):
 
@@ -134,19 +141,17 @@ class QuadTree:
 			index = self.getIndex(obj)
 			if index!=-1:
 				self.nodes[index].insert(obj)
+				return 
 
 		self.objects.append(obj)
 
 		logging.info("what shit")
-		if len(self.objects)>self.maxobjects and self.level<self.maxlevel:
+
+		if len(self.objects)+1>self.maxobjects and self.level<self.maxlevel:
 			if self.nodes[0]==None:
+				logging.info("calling to split")
 				self.split()
 
-
-			''' 	
-				To prevent infinite splitting we assign the elements 
-				to the respective quadrant 
-			'''
 			i = 0
 			while i<len(self.objects):
 
