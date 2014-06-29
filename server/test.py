@@ -20,3 +20,6 @@ cluster.getAllobjects()
 
 for i in returnedObject:
 	print i
+
+returnedObject = []
+cluster.findNearbyobjects({'x':222,'y':111})

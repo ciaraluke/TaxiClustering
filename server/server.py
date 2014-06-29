@@ -19,15 +19,18 @@ def admin():
 
 		for entries in rows:
 			address = Geocoder.geocode(entries[1])
-			data = {'gen_id':entries[1],
+			data = {
+
+				'gen_id':entries[1],
 				'x':address.coordinates[0],
 				'y':address.coordinates[1]
 			}
-			clustering_data.append(data)
+		
 			cluster.insert(data)
 		
-		#return json.dumps(clustering_data)
+		
 		cluster.getAllobjects()
+
 		return json.dumps(returnedObject)
 
 	except Exception as e:

@@ -46,14 +46,19 @@ class QuadTree:
 		#return returnedObject
 
 	
-	def findNearbyobjects(self,obj,returnedObject):
+	def findNearbyobjects(self,obj):
 
+		returnedObject = []
 		index = self.getIndex(obj)
 
-		if (index != -1 and self.nodes):
+		print index,"=>",self.nodes[index]
+
+
+		if (index != -1 and self.nodes[0]!=None):
 			self.nodes[index].findNearbyobjects(obj)
 
 		for elements in self.objects:
+			print elements
 			returnedObject.append(elements)
 
 		return returnedObject
