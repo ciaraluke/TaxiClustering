@@ -40,7 +40,7 @@ class QuadTree:
 		
 		if len(self.objects)!=0:
 			#returnedObject = returnedObject + self.objects
-			returnedObject.append(self.objects)
+			returnedObject.extend(self.objects)
 			logging.info("okay this shit is happeneing r {0}".format(returnedObject) )
 		
 		#return returnedObject

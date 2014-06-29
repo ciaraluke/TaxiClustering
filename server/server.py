@@ -16,7 +16,8 @@ def admin():
 		clustering_data = []
 
 		cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
-
+		
+		#returnedObject = []
 		for entries in rows:
 			address = Geocoder.geocode(entries[1])
 			data = {
@@ -25,17 +26,16 @@ def admin():
 				'x':address.coordinates[0],
 				'y':address.coordinates[1]
 			}
-		
 			cluster.insert(data)
 		
-		
 		cluster.getAllobjects()
-
-		return json.dumps(returnedObject)
+		
+		print "OH MY FUCKING GOD => {0}".format(returnedObject)
+		return render_template("/admin/index.html" ,posts = returnedObject)
 
 	except Exception as e:
-		print 'Fuck this shit '
-
+		print e
+		return render_template('/admin/index.html')
 
 @app.route("/bookStatus",methods = ["POST"])
 def book():
