@@ -1,66 +1,51 @@
 import logging
 
 logging.root.setLevel(logging.INFO)
-returnedObject = []
+#returnedObject = []
 
 class QuadTree:
 
-
 	def __init__(self,BoundBox,lvl):
-
-			self.BoundBox = BoundBox 
-			self.nodes = [None]*4
-			self.level = lvl
-
-
-			self.maxlevel = 8
-			self.objects = []
-			self.maxobjects = 3 # Capacity of the taxi
+		
+		self.BoundBox = BoundBox 
+		self.nodes = [None]*4
+		self.level = lvl
+		self.maxlevel = 8
+		self.objects = []
+		self.maxobjects = 3 # Capacity of the taxi
 		 
-
 	def clear(self):
 
 		self.objects = []
-
 		for nodes in self.nodes:
 			nodes.clear()
-
 		self.nodes = []
 
-	
-	def getAllobjects(self):
+	def getAllobjects(self,returnedObject=[]):
 
 		if self.nodes[0]!=None:
 			for nodes in self.nodes:
 				nodes.getAllobjects()
 
-		#for obj in self.objects:
-		#returnedObject.append(obj)
-		#logging.info("okay this shit is happeneing {0}".format(returnedObject) )
 		
 		if len(self.objects)!=0:
-			#returnedObject = returnedObject + self.objects
+
 			returnedObject.extend(self.objects)
-			logging.info("okay this shit is happeneing r {0}".format(returnedObject) )
+#			print returnedObject
+#			logging.info("okay this shit is happeneing r {0}".format(returnedObject) )
 		
-		#return returnedObject
+		return returnedObject
 
 	
-	def findNearbyobjects(self,obj):
+	def findNearbyobjects(self,obj,returnedObject=[]):
 
-		returnedObject = []
+	#	returnedObject = []
 		index = self.getIndex(obj)
-
-		print index,"=>",self.nodes[index]
-
-
-		if (index != -1 and self.nodes[0]!=None):
+		if (index != -1 and self.nodes[0]!=None and len(self.objects)==0):
 			self.nodes[index].findNearbyobjects(obj)
 
-		for elements in self.objects:
-			print elements
-			returnedObject.append(elements)
-
+		if len(self.objects)!=0:
+			returnedObject = returnedObject.extend(self.objects)
 		return returnedObject
 
 	
@@ -70,28 +55,20 @@ class QuadTree:
 		verticalMidPoint   = self.BoundBox['x']+(self.BoundBox['width']/2)
 		horizontalMidPoint = self.BoundBox['y']+(self.BoundBox['height']/2)
 
-		print obj
 		left = obj['x'] < verticalMidPoint
 		right = obj['x'] > verticalMidPoint
 
 		if left:
 
-			if(obj['y']<horizontalMidPoint):
-
+			if obj['y']<horizontalMidPoint:
 				index =  1
 			
-			elif (obj['y']>horizontalMidPoint):
-
+			elif obj['y']>horizontalMidPoint:
 				index =  2
-
 		else:
-
-			if(obj['y']<horizontalMidPoint):
-
+			if obj['y']<horizontalMidPoint:
 				index = 0
-
 			else:
-
 				index = 3
 
 		return index
@@ -134,7 +111,7 @@ class QuadTree:
 		self.nodes[1] = QuadTree(square2,self.level+1)
 		self.nodes[2] = QuadTree(square3,self.level+1)
 		self.nodes[3] = QuadTree(square4,self.level+1)
-		logging.info("it split successfully")
+#		logging.info("it split successfully")
 
 	def insert(self,obj):
 
@@ -150,11 +127,11 @@ class QuadTree:
 
 		self.objects.append(obj)
 
-		logging.info("what shit")
+#		logging.info("what shit")
 
 		if len(self.objects)+1>self.maxobjects and self.level<self.maxlevel:
 			if self.nodes[0]==None:
-				logging.info("calling to split")
+			#	logging.info("calling to split")
 				self.split()
 
 			i = 0

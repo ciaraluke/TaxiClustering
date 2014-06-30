@@ -13,11 +13,10 @@ def admin():
 		cur = cnx.cursor()
 		data = cur.execute('select * from taxi')
 		rows = cur.fetchall()
-		clustering_data = []
-
-		cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
 		
+		cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
 		#returnedObject = []
+		
 		for entries in rows:
 			address = Geocoder.geocode(entries[1])
 			data = {
@@ -28,10 +27,12 @@ def admin():
 			}
 			cluster.insert(data)
 		
-		cluster.getAllobjects()
-		
-		print "OH MY FUCKING GOD => {0}".format(returnedObject)
-		return render_template("/admin/index.html" ,posts = returnedObject)
+		#print "OH MY FUCKING GOD => {0}".format(
+		#cluster.getAllobjects()
+		#)
+
+		posts = cluster.getAllobjects()
+		return render_template("/admin/index.html" ,posts = posts)
 
 	except Exception as e:
 		print e
