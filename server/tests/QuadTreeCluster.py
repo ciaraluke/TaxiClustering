@@ -5,7 +5,6 @@ logging.root.setLevel(logging.INFO)
 
 class QuadTree:
 
-
 	def __init__(self,BoundBox,lvl):
 
 			self.BoundBox = BoundBox 
@@ -44,21 +43,15 @@ class QuadTree:
 		return returnedObject
 
 	
-	def findNearbyobjects(self,obj):
+	def findNearbyobjects(self,obj,returnedObject=[]):
 
-		returnedObject = []
 		index = self.getIndex(obj)
-
-		print index,"=>",self.nodes[index]
-
-
-		if (index != -1 and self.nodes[0]!=None):
+		if (index != -1 and self.nodes[0]!=None and len(self.objects)==0):
 			self.nodes[index].findNearbyobjects(obj)
 
-		for elements in self.objects:
-			print elements
-			returnedObject.append(elements)
-
+		if len(self.objects)!=0:
+			returnedObject = returnedObject.extend(self.objects)
+		
 		return returnedObject
 
 	
