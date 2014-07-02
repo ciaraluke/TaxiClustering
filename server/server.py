@@ -26,14 +26,16 @@ def admin():
 			}
 			cluster.insert(data)
 
+		posts = []
+		posts.extend(cluster.getAllobjects())
 
-		posts = cluster.getAllobjects()
-		print posts
 		cluster.clear()
-		return render_template("/admin/index.html" ,posts = posts)
+		print posts
+		return json.dumps(posts)
+		#return render_template("/admin/index.html" ,posts = posts)
 
 	except Exception as e:
-		print e
+		print "WHAT THE FUCK IS WRONG => {0}".format(e)
 		return render_template('/admin/index.html')
 
 @app.route("/bookStatus",methods = ["POST"])

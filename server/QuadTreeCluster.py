@@ -1,6 +1,8 @@
 import logging
 
 logging.root.setLevel(logging.INFO)
+returnedObject = []
+
 
 class QuadTree:
 
@@ -25,11 +27,14 @@ class QuadTree:
 		for data in self.objects:
 			data = None
 
-		
 		self.nodes =[]
 		self.objects = []
-	
-	def getAllobjects(self,returnedObject=[]):
+
+		for data in returnedObject:
+			returnedObject.remove(data)
+
+
+	def getAllobjects(self):
 
 		if self.nodes[0]!=None:
 			for nodes in self.nodes:
@@ -41,7 +46,7 @@ class QuadTree:
 		return returnedObject
 
 	
-	def findNearbyobjects(self,obj,returnedObject=[]):
+	def findNearbyobjects(self,obj):
 
 		index = self.getIndex(obj)
 		if (index != -1 and self.nodes[0]!=None and len(self.objects)==0):
