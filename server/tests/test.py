@@ -18,9 +18,13 @@ for addr in addresses:
 
 print 'Fuck yeah {0}'.format(cluster.getAllobjects())
 
-#returnedObject = []
 
-coord = Geocoder.geocode("Samsung,Banglore")
-data = {'x':coord.coordinates[0],'y':coord.coordinates[1],'address':'Lotus Park Hotel,Banglore'}
+addr = "Samsung Banglore"
+coord = Geocoder.geocode(addr)
+data = {'x':coord.coordinates[0],'y':coord.coordinates[1],'address':addr}
 
-print 'Nearest Place is {0}'.format(cluster.findNearbyobjects(data))
+cluster.clear()
+
+cluster.insert(data)
+print 'Mofo the ans {0}'.format(cluster.getAllobjects())
+#print 'Nearest Place to {0} is {1}'.format(addr,cluster.findNearbyobjects(data))

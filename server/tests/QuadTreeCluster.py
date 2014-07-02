@@ -10,23 +10,26 @@ class QuadTree:
 			self.BoundBox = BoundBox 
 			self.nodes = [None]*4
 			self.level = lvl
-
-
 			self.maxlevel = 8
 			self.objects = []
 			self.maxobjects = 3 # Capacity of the taxi
 		 
 
 	def clear(self):
+		''' Clear the Quadtree '''
 
+		for node in self.nodes:
+			if node:
+				node.clear()
+
+		for data in self.objects:
+			data = None
+
+		print self.objects
 		self.objects = []
+		self.nodes = [None]*4
 
-		for nodes in self.nodes:
-			nodes.clear()
 
-		self.nodes = []
-
-	
 	def getAllobjects(self,returnedObject=[]):
 
 		if self.nodes[0]!=None:
