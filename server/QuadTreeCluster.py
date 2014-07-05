@@ -41,8 +41,7 @@ class QuadTree:
 				nodes.getAllobjects()
 
 		if len(self.objects)!=0:
-			returnedObject.extend(self.objects)
-		
+			returnedObject.append(self.objects)
 		return returnedObject
 
 	

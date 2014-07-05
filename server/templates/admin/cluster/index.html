@@ -3,13 +3,6 @@
 	<head>
 		<title>Taxi Server</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-
-		<script type="text/javascript">
-			function cluster(){
-				console.log("awesome")
-				location.href = "/admin/cluster";
-			}
-		</script>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 		<style>
 			.centered{
@@ -25,11 +18,11 @@
 		<div class="container" id="log">
 			<div class="col-lg-8 centered">
 				<center>
-					<h1> Booking List </h1>
+					<h1> Cluster </h1>
 				</center>
 			</div>
 
-
+			{% for data in posts %}
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -39,19 +32,17 @@
 				</thead>
 				<tbody>
 					
-						{% for post in posts %} 
+						{% for post in data %}			 
 						<tr>
-		
-							<td>{{post.name}}</td>
-							<td>{{post.address}}</td>
-						</tr>
 							
-						{% endfor %} 
+							<td>{{post.name}}</td>
+							<td>{{post.Address}}</td>
+						</tr>
+						{% endfor %}
 				<tbody>
 			</table>
-			<button type="submit" class="btn btn-default" onclick="cluster()">Cluster</button>
-		</div>
-		 
-	</body>
+			{% endfor %} 
 
-</html>
+		</div>
+
+	</body>

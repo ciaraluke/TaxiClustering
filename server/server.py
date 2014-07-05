@@ -14,6 +14,42 @@ def admin():
 		data = cur.execute('select * from taxi')
 		rows = cur.fetchall()
 
+		#cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
+		
+		
+		#for entries in rows:
+		#	address = Geocoder.geocode(entries[1])
+		#	data = {
+
+		#		'Address':entries[1],
+		#		'x':address.coordinates[0],
+		#		'y':address.coordinates[1]
+		#	}
+		#	cluster.insert(data)
+
+		#post = []
+		#post.extend(cluster.getAllobjects())
+		#cluster.clear()
+		post = []
+		for val in rows:
+			post.append({'name':val[0],'address':val[1],'gen_id':val[2]})
+		print rows
+		print post
+		return render_template("/admin/index.html" ,posts = post)
+	
+	except Exception as e:
+		print "WHAT THE FUCK IS WRONG => {0}".format(e)
+		return render_template('/admin/index.html',posts=json.dumps({'nirvik':'Best'}))
+
+
+@app.route("/admin/cluster")
+def collect_smartly():
+	
+	try:
+		cur = cnx.cursor()
+		data = cur.execute('select * from taxi')
+		rows = cur.fetchall()
+
 		cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
 		
 		
@@ -23,18 +59,21 @@ def admin():
 
 				'Address':entries[1],
 				'x':address.coordinates[0],
-				'y':address.coordinates[1]
+				'y':address.coordinates[1],
+				'name' : entries[0]
 			}
 			cluster.insert(data)
 
 		post = []
 		post.extend(cluster.getAllobjects())
 		cluster.clear()
-		return render_template("/admin/index.html" ,posts = post)
-	
+		#return json.dumps(post)
+		return render_template("/admin/cluster/index.html" ,posts = post)
+
 	except Exception as e:
 		print "WHAT THE FUCK IS WRONG => {0}".format(e)
-		return render_template('/admin/index.html',posts=json.dumps({'nirvik':'Best'}))
+		#return {"fuck this shit "}
+		return render_template('/admin/cluster/index.html',posts=json.dumps({'error':'Fucked'}))
 
 @app.route("/bookStatus",methods = ["POST"])
 def book():
