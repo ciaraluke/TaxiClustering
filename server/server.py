@@ -14,22 +14,6 @@ def admin():
 		data = cur.execute('select * from taxi')
 		rows = cur.fetchall()
 
-		#cluster = QuadTree({'x':0,'y':0,'width':18,'height':24},0)
-		
-		
-		#for entries in rows:
-		#	address = Geocoder.geocode(entries[1])
-		#	data = {
-
-		#		'Address':entries[1],
-		#		'x':address.coordinates[0],
-		#		'y':address.coordinates[1]
-		#	}
-		#	cluster.insert(data)
-
-		#post = []
-		#post.extend(cluster.getAllobjects())
-		#cluster.clear()
 		post = []
 		for val in rows:
 			post.append({'name':val[0],'address':val[1],'gen_id':val[2]})
